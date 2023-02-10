@@ -23,6 +23,7 @@
 
     <!--스타일 시트 연결/커밋테스트-->
     <!--    <link rel="stylesheet" href="./static/css/style.css">-->
+    <link rel="icon" href="/static/img/favicon.ico">
 
     <title>Playlist Bibimbap</title>
 
@@ -531,27 +532,23 @@
                     top5Tracks.forEach(function (track) {
                         let tracksList = `
                                 <div class="col-sd-4">
-                                    <div class="card slide-card">
-                                        <div class="card-header">
-                                            <img id="image_result" src="${track.image}" alt="Track Image" style="height:100%;">
-                                            <div>
-                                                    <button onclick="preview_play(this.nextElementSibling)" class="play-spotify">
+                                    <div class="card">
+                                        <img id="image_result" src="${track.image}" alt="Track Image" style="height:100%;">
+                                            <div class="card-body">
+                                                <h5 class="card-title" id="track_result">${track.track}</h5>
+                                                <div class="position-absolute bottom-0 end-0">
+                                                    <button type="button" id="select" class="btn btn-light" onclick="popup_show(); select_track(this)" ><i class="fa-solid fa-spoon fa-2x" style="transform: scaleX(-1);"></i></button>
+                                                </div>
+                                                <div>
+                                                    <button onclick="preview_play(this.nextElementSibling)" style="border:0; outline:0; background-color:transparent; color: #1ED760;">
                                                         <i class="fa-brands fa-spotify fa-2x" ></i>
                                                     </button>
                                                     <audio id="play">
                                                         <source id="preview_result" src=${track.url} type="audio/mpeg">
                                                     </audio>
-                                             </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title" id="track_result">${track.track}</h5>
-                                        </div>
-                                        <div class="card-footer">
-                                            <p class="card-text" id="artists_result">${track.artists}</p>
-                                            <button type="button" id="select" class="btn-light" onclick="popup_show(); select_track(this)" >
-                                               <i class="fa-solid fa-spoon" style="transform: scaleX(-1);"></i>
-                                            </button>
-                                        </div>
+                                                </div>
+                                                <p class="card-text" id="artists_result">${track.artists}</p>
+                                            </div>
                                     </div>
                                 </div>`
                         $('#carousel-first').append(tracksList);
@@ -561,27 +558,23 @@
                     next5Tracks.forEach(function (track) {
                         let tracksList = `
                                 <div class="col-sd-4">
-                                    <div class="card slide-card">
-                                        <div class="card-header">
-                                            <img id="image_result" src="${track.image}" alt="Track Image">
-                                            <div>
-                                               <button onclick="preview_play(this.nextElementSibling)" class="play-spotify">
+                                    <div class="card">
+                                        <img id="image_result" src="${track.image}"  alt="Track Image" style="height:100%;">
+                                            <div class="card-body">
+                                                <h5 class="card-title" id="track_result">${track.track}</h5>
+                                                <div class="position-absolute bottom-0 end-0">
+                                                    <button type="button" id="select" class="btn btn-light" onclick="popup_show(); select_track(this)" ><i class="fa-solid fa-spoon fa-2x" style="transform: scaleX(-1);"></i></button>
+                                                </div>
+                                                <div>
+                                                    <button  onclick="preview_play(this.nextElementSibling)" style="border:0; outline:0; background-color:transparent;">
                                                         <i class="fa-brands fa-spotify fa-2x" ></i>
-                                               </button>
-                                               <audio id="play">
-                                                   <source id="preview_result" src=${track.url} type="audio/mpeg">
-                                               </audio>
-                                             </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title" id="track_result">${track.track}</h5>
-                                         </div>
-                                         <div class="card-footer">
-                                            <p class="card-text" id="artists_result">${track.artists}</p>
-                                            <button type="button" id="select" class="btn-light" onclick="popup_show(); select_track(this)">
-                                                <i class="fa-solid fa-spoon" style="transform: scaleX(-1);"></i>
-                                            </button>
-                                         </div>
+                                                    </button>
+                                                    <audio id="play">
+                                                        <source id="preview_result" src=${track.url} type="audio/mpeg">
+                                                    </audio>
+                                                </div>
+                                                <p class="card-text" id="artists_result">${track.artists}</p>
+                                            </div>
                                     </div>
                                 </div>`
                         $('#carousel-second').append(tracksList);
@@ -591,6 +584,7 @@
                 }
             });
         }
+
     </script>
 
     <script>
