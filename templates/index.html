@@ -570,7 +570,7 @@
                                                     <button type="button" id="select" class="btn btn-light" onclick="popup_show(); select_track(this)" ><i class="fa-solid fa-spoon fa-2x" style="transform: scaleX(-1);"></i></button>
                                                 </div>
                                                 <div>
-                                                    <button  onclick="preview_play(this.nextElementSibling)" style="border:0; outline:0; background-color:transparent;">
+                                                    <button  onclick="preview_play(this.nextElementSibling)" style="border:0; outline:0; background-color:transparent; color: #1ED760;">
                                                         <i class="fa-brands fa-spotify fa-2x" ></i>
                                                     </button>
                                                     <audio id="play">
@@ -621,10 +621,10 @@
     </script>
 
     <script>
-         function likeCountBtn(children) {
-             let count = parseInt(children[1].innerText)
-             count += 1
-             children[1].innerText = count
+        function likeCountBtn(children) {
+            let count = parseInt(children[1].innerText)
+            count += 1
+            children[1].innerText = count
         }
 
         $(document).ready(function () {
@@ -654,7 +654,7 @@
                                                         <div class="card-footer">
                                                             <p class="card-text" id="selected_artists">${selected_track.artists}</p>
 
-                                                            <button type="submit" onclick="likeCountBtn()" id="like" class="likes">
+                                                            <button type="submit" onclick="likeCountBtn(this.children)" id="like" class="likes">
                                                                 <i class="fa-solid fa-heart fa-2x"></i>
                                                                 <strong>0</strong>
                                                             </button>
