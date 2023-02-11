@@ -621,11 +621,24 @@
     </script>
 
     <script>
-        function likeCountBtn(children) {
-            let count = parseInt(children[1].innerText)
-            count += 1
-            children[1].innerText = count
-        }
+        // function likeCountBtn(children) {
+        // let count = parseInt(children[1].innerText)
+        // count += 1
+        // children[1].innerText = count}
+
+        function likeCountBtn() {
+            let liked_trackID = $(this).closest(".card").find("#selected_trackID").text();
+            let like_count = parseInt($(this).closest(".card").find("#like_count").text());
+            window.location.reload();
+        $.ajax({
+            type: "POST",
+            url: "/playlist",
+            data: {'like_trackID': liked_trackID},
+            success: function (response) {
+                console.log(response);
+            }
+
+        });}
 
         $(document).ready(function () {
             selected_trackLists()
@@ -648,13 +661,15 @@
                                                         </div>
                                                         <div class="card-body">
                                                                 <h5 class="card-title" id="selected_tracks">${selected_track.track}</h5>
+                                                                <span class="visually-hidden" id="selected_trackID">${selected_track.trackID}</span>
                                                                 <p class="count">${selected_track.count}명이 듣고 있어요</p>
                                                         </div>
                                                         <div class="card-footer">
                                                             <p class="card-text" id="selected_artists">${selected_track.artists}</p>
-                                                            <button onclick="likeCountBtn(this.children)" id="like" class="likes">
+
+                                                            <button type="submit" onclick="likeCountBtn()" id="like" class="likes">
                                                                 <i class="fa-solid fa-heart fa-2x"></i>
-                                                                <strong>0</strong>
+                                                                <strong id="likeCount">0</strong>
                                                             </button>
 
                                                              <button onClick="preview_play(this.nextElementSibling)"
