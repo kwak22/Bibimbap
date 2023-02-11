@@ -75,13 +75,13 @@ def playlist_get():
 
 @app.route("/playlist", methods=["POST"])
 def selected_track_post():
-    selected_trackID_receive = request.form['select_trackID']
-    existing_track = db.playlist.find_one({"trackID": selected_trackID_receive})
-    print(selected_trackID_receive)
+    selected_track_id_receive = request.form['select_trackID']
+    existing_track = db.playlist.find_one({"trackID": selected_track_id_receive})
+    print(selected_track_id_receive)
 
     if existing_track is None:
         selected_track_data = db.search_results.find(
-            {"trackID": selected_trackID_receive})
+            {"trackID": selected_track_id_receive})
         track_count = 1
         for track_data in selected_track_data:
             selected_track = {
@@ -97,7 +97,7 @@ def selected_track_post():
             db.playlist.insert_one(selected_track)
 
     else:
-        db.playlist.update_one({"trackID": selected_trackID_receive},
+        db.playlist.update_one({"trackID": selected_track_id_receive},
                                {"$inc": {"count": 1}})
 
     return 'OK'
@@ -116,4 +116,4 @@ def selected_track_get():
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5001, debug=True)
