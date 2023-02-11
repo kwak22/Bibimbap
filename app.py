@@ -75,50 +75,33 @@ def playlist_get():
 
 @app.route("/playlist", methods=["POST"])
 def selected_track_post():
-    if request.method == "POST":
-        selected_trackID_receive = request.form.get('select_trackID', None)
-        existing_track = db.playlist.find_one({"trackID": selected_trackID_receive})
-        print(selected_trackID_receive)
+    selected_trackID_receive = request.form['select_trackID']
+    existing_track = db.playlist.find_one({"trackID": selected_trackID_receive})
+    print(selected_trackID_receive)
 
-        if existing_track is None:
-            selected_track_data = db.search_results.find(
-                {"trackID": selected_trackID_receive})
-            track_count = 1
-            track_likes = 0
-            for track_data in selected_track_data:
-                selected_track = {
-                    'track': track_data['track'],
-                    'artists': track_data['artists'],
-                    'image': track_data['image'],
-                    'url': track_data['url'],
-                    'hour': track_data['hour'],
-                    'count': track_count,
-                    'timestamp': track_data['timestamp'],
-                    'trackID': track_data['trackID'],
-                    'likes': track_likes
-                }
-                db.playlist.insert_one(selected_track)
+    if existing_track is None:
+        selected_track_data = db.search_results.find(
+            {"trackID": selected_trackID_receive})
+        track_count = 1
+        for track_data in selected_track_data:
+            selected_track = {
+                'track': track_data['track'],
+                'artists': track_data['artists'],
+                'image': track_data['image'],
+                'url': track_data['url'],
+                'hour': track_data['hour'],
+                'count': track_count,
+                'timestamp': track_data['timestamp'],
+                'trackID': track_data['trackID'],
+                'likes': track_likes
+            }
+            db.playlist.insert_one(selected_track)
 
-        else:
-            db.playlist.update_one({"trackID": selected_trackID_receive},
-                                   {"$inc": {"count": 1}})
+    else:
+        db.playlist.update_one({"trackID": selected_trackID_receive},
+                               {"$inc": {"count": 1}})
 
-        return 'OK'
-
-def like_added():
-    if request.method == "POST":
-        selected_trackID_receive = request.form.get('select_trackID', None)
-        if selected_trackID_receive is not None:
-            liked_track_id_receive = request.form['like_trackID']
-            liked_track = db.playlist.find_one({"trackID": liked_track_id_receive})
-            if liked_track:
-                db.playlist.update_one({"trackID": liked_track_id_receive},
-                                           {"$inc": {"likes": 1}})
-
-            return jsonify({"msg": liked_track_id_receive})
-        else:
-            return redirect(request.url)
-
+    return 'OK'
 
 
 @app.route("/playlist", methods=["GET"])
@@ -130,9 +113,6 @@ def selected_track_get():
         unique_tracks.append(track_data)
 
     return jsonify({'selected_track': unique_tracks})
-
-
-
 
 
 

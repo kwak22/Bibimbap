@@ -621,27 +621,11 @@
     </script>
 
     <script>
-        // function likeCountBtn(children) {
-        // let count = parseInt(children[1].innerText)
-        // count += 1
-        // children[1].innerText = count}
-
-        function likeCountBtn() {
-            let liked_trackID = $(this).closest(".card").find("#selected_id").text();
-
-            $.ajax({
-                type: "POST",
-                url: "/playlist",
-                data: {'like_trackID': liked_trackID},
-                success: function (response) {
-                    console.log(response);
-                }
-
-            });
-            window.location.reload()
+         function likeCountBtn(children) {
+             let count = parseInt(children[1].innerText)
+             count += 1
+             children[1].innerText = count
         }
-    </script>
-    <script>
 
         $(document).ready(function () {
             selected_trackLists();
@@ -672,7 +656,7 @@
 
                                                             <button type="submit" onclick="likeCountBtn()" id="like" class="likes">
                                                                 <i class="fa-solid fa-heart fa-2x"></i>
-                                                                <strong id="likeCount">${selected_track.likes || 0}</strong>
+                                                                <strong>0</strong>
                                                             </button>
 
                                                              <button onClick="preview_play(this.nextElementSibling)"
@@ -686,11 +670,12 @@
                                                     </div>
                                                 </div>`
 
-                        $('#cards-box').prepend(selected_trackList)
+                        $('#cards-box').append(selected_trackList)
                     });
                 }
             })
         }
+
     </script>
 
 
@@ -712,6 +697,7 @@
         </div>
         <div class="input-group mb-3" style="width: 60%; min-width:200px; align-self: center; margin-top: 20px;">
             <input id="track" type="text" class="form-control" placeholder="지금 듣고 있는 노래를 검색해 노래를 모아보세요!">
+
             <button class="btn btn-dark" type="submit" id="search_button" onclick="spotify_search()">
                 <i class="fa-solid fa-magnifying-glass" style="color:white;"></i>
             </button>
