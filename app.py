@@ -76,7 +76,7 @@ def playlist_get():
 @app.route("/playlist", methods=["POST"])
 def selected_track_post():
     if request.method == "POST":
-        selected_trackID_receive = request.form['select_trackID']
+        selected_trackID_receive = request.form.get('select_trackID', None)
         existing_track = db.playlist.find_one({"trackID": selected_trackID_receive})
         print(selected_trackID_receive)
 
@@ -95,7 +95,7 @@ def selected_track_post():
                     'count': track_count,
                     'timestamp': track_data['timestamp'],
                     'trackID': track_data['trackID'],
-                    'likes' : track_likes
+                    'likes': track_likes
                 }
                 db.playlist.insert_one(selected_track)
 
@@ -104,6 +104,21 @@ def selected_track_post():
                                    {"$inc": {"count": 1}})
 
         return 'OK'
+
+def like_added():
+    if request.method == "POST":
+        selected_trackID_receive = request.form.get('select_trackID', None)
+        if selected_trackID_receive is not None:
+            liked_track_id_receive = request.form['like_trackID']
+            liked_track = db.playlist.find_one({"trackID": liked_track_id_receive})
+            if liked_track:
+                db.playlist.update_one({"trackID": liked_track_id_receive},
+                                           {"$inc": {"likes": 1}})
+
+            return jsonify({"msg": liked_track_id_receive})
+        else:
+            return redirect(request.url)
+
 
 
 @app.route("/playlist", methods=["GET"])
@@ -116,14 +131,9 @@ def selected_track_get():
 
     return jsonify({'selected_track': unique_tracks})
 
-@app.route("/playlist", methods=["POST"])
-def like_added():
-    if request.method == "POST":
-        liked_trackID_receive = request.form['like_trackID']
-        db.playlist.update_one({"trackID": liked_trackID_receive},
-                               {"$inc": {"likes": 1}})
-        print(liked_trackID_receive)
-        return 'OK'
+
+
+
 
 
 if __name__ == '__main__':
