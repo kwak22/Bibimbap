@@ -75,13 +75,13 @@ def playlist_get():
 
 @app.route("/playlist", methods=["POST"])
 def selected_track_post():
-    selected_track_receive = request.form['select_track']
-    selected_artists_receive = request.form['select_artists']
-    existing_track = db.playlist.find_one({"track": selected_track_receive, "artists": selected_artists_receive})
+    selected_trackID_receive = request.form['select_trackID']
+    existing_track = db.playlist.find_one({"trackID": selected_trackID_receive})
+    print(selected_trackID_receive)
 
     if existing_track is None:
         selected_track_data = db.search_results.find(
-            {"track": selected_track_receive, "artists": selected_artists_receive})
+            {"trackID": selected_trackID_receive})
         track_count = 1
         for track_data in selected_track_data:
             selected_track = {
@@ -97,7 +97,7 @@ def selected_track_post():
             db.playlist.insert_one(selected_track)
 
     else:
-        db.playlist.update_one({"track": selected_track_receive, "artists": selected_artists_receive},
+        db.playlist.update_one({"trackID": selected_trackID_receive},
                                {"$inc": {"count": 1}})
 
     return 'OK'
@@ -112,7 +112,6 @@ def selected_track_get():
         unique_tracks.append(track_data)
 
     return jsonify({'selected_track': unique_tracks})
-
 
 
 if __name__ == '__main__':

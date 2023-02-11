@@ -530,12 +530,14 @@
                     tracksList.empty();
                     let top5Tracks = tracks.slice(0, 5);
                     top5Tracks.forEach(function (track) {
+
                         let tracksList = `
                                 <div class="col-sd-4">
                                     <div class="card">
                                         <img id="image_result" src="${track.image}" alt="Track Image" style="height:100%;">
                                             <div class="card-body">
                                                 <h5 class="card-title" id="track_result">${track.track}</h5>
+                                                <span class="visually-hidden" id="trackID_result">${track.trackID}</span>
                                                 <div class="position-absolute bottom-0 end-0">
                                                     <button type="button" id="select" class="btn btn-light" onclick="popup_show(); select_track(this)" ><i class="fa-solid fa-spoon fa-2x" style="transform: scaleX(-1);"></i></button>
                                                 </div>
@@ -562,6 +564,7 @@
                                         <img id="image_result" src="${track.image}"  alt="Track Image" style="height:100%;">
                                             <div class="card-body">
                                                 <h5 class="card-title" id="track_result">${track.track}</h5>
+                                                <span class="visually-hidden" id="trackID_result">${track.trackID}</span>
                                                 <div class="position-absolute bottom-0 end-0">
                                                     <button type="button" id="select" class="btn btn-light" onclick="popup_show(); select_track(this)" ><i class="fa-solid fa-spoon fa-2x" style="transform: scaleX(-1);"></i></button>
                                                 </div>
@@ -596,17 +599,18 @@
 
 
         function select_track(button) {
-            let selected_track = $(button).closest(".card").find("#track_result").text();
-            let selected_artists = $(button).closest(".card").find("#artists_result").text();
-            let selected_image = $(button).closest(".card").find("#image_result").attr("src");
-            let selected_preview = $(button).closest(".card").find("#preview_result").attr("src");
+            // let selected_track = $(button).closest(".card").find("#track_result").text();
+            // let selected_artists = $(button).closest(".card").find("#artists_result").text();
+            // let selected_image = $(button).closest(".card").find("#image_result").attr("src");
+            // let selected_preview = $(button).closest(".card").find("#preview_result").attr("src");
+            let selected_trackID = $(button).closest(".card").find("#trackID_result").text();
 
-            console.log(selected_track, selected_artists, selected_image, selected_preview)
+            console.log(selected_trackID)
 
             $.ajax({
                 type: "POST",
                 url: "/playlist",
-                data: {'select_track': selected_track, 'select_artists': selected_artists},
+                data: {'select_trackID': selected_trackID},
                 success: function (response) {
                 },
             });
@@ -661,6 +665,7 @@
                 success: function (response) {
                     let selectedTracks = response.selected_track;
                     selectedTracks.sort((a, b) => b.timestamp - a.timestamp);
+                    selectedTracks = selectedTracks.slice(0, 50);
                     selectedTracks.forEach(function (selected_track) {
                         let selected_trackList = `<div class="col">
                                                     <div class="card">
