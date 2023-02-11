@@ -665,7 +665,7 @@
                 success: function (response) {
                     let selectedTracks = response.selected_track;
                     selectedTracks.sort((a, b) => b.timestamp - a.timestamp);
-                    selectedTracks = selectedTracks.slice(0, 50);
+                    selectedTracks = selectedTracks.slice(0, 52);
                     selectedTracks.forEach(function (selected_track) {
                         let selected_trackList = `<div class="col">
                                                     <div class="card">
@@ -782,7 +782,9 @@
 
     <div class="popup_add_song" id="popup" style="display: none;">
         <div class="contents">
-            <i class="fa-solid fa-bowl-food fa-9x" style="margin: 10px;"></i>
+            <img id="description"
+                         src="/static/img/img_bibimbap.svg"
+                         style="align-self: center; width: 60%; height: 60%; ">
             <p><strong>Playlist Bibimbap</strong>에 노래가 담겼어요.</p>
         </div>
     </div>
