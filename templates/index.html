@@ -126,6 +126,7 @@
             background-color: #fcc221;
             display: inline-block;
         }
+
         .carousel-inner {
             display: flex;
             width: 70%;
@@ -183,7 +184,7 @@
             opacity: 1;
         }
 
-        .card.slide-card{
+        .card.slide-card {
             border-radius: 8px;
             overflow: hidden;
             border: none;
@@ -219,11 +220,11 @@
             line-height: 28px;
         }
 
-        .card.slide-card .card-body{
+        .card.slide-card .card-body {
             padding: 10px 10px 0 10px;
         }
 
-        .card.slide-card .card-body h5{
+        .card.slide-card .card-body h5 {
             margin-bottom: 0;
         }
 
@@ -236,7 +237,7 @@
             background-color: white;
         }
 
-        .card.slide-card .card-footer .fa-spoon{
+        .card.slide-card .card-footer .fa-spoon {
             font-size: 20px;
         }
 
@@ -617,33 +618,6 @@
             window.location.reload()
         }
 
-
-        /*let selectedTrack = `<div class="col">
-                    <div class="cards" id="songs_time">
-                        <div class="card">
-                            <div class="card-body">
-                                <img src="${selected_image}" alt="Track Image" style="height: 100%; width: 100%;"">
-                                    <h5 class="card-title" id="selected_tracks">${selected_track}</h5>
-                                    <p class="count">${count}명이 듣고 있어요</p>
-                            </div>
-                            <div class="card-footer">
-                                <p class="card-text">${selected_artists}</p>
-                                <button class="likes">
-                                <i class="fa-solid fa-heart fa-2x"></i>
-                                    <strong>0</strong>
-                                </button>
-                                 <button onClick="preview_play(this.nextElementSibling)"
-                                            style="border:0; outline:0; background-color:transparent;">
-                                        <i class="fa-brands fa-spotify fa-2x"></i>
-                                 </button>
-                                 <audio id="play">
-                                     <source src="${selected_preview}" type="audio/mpeg">
-                                 </audio>
-                            </div>
-                        </div>
-                    </div>`
-        $('#cards-box').prepend(selectedTrack)*/
-
     </script>
 
     <script>
@@ -677,7 +651,7 @@
                                                                 <p class="count">${selected_track.count}명이 듣고 있어요</p>
                                                         </div>
                                                         <div class="card-footer">
-                                                            <p class="card-text">${selected_track.artists}</p>
+                                                            <p class="card-text" id="selected_artists">${selected_track.artists}</p>
                                                             <button onclick="likeCountBtn(this.children)" id="like" class="likes">
                                                                 <i class="fa-solid fa-heart fa-2x"></i>
                                                                 <strong>0</strong>
@@ -721,7 +695,6 @@
         </div>
         <div class="input-group mb-3" style="width: 60%; min-width:200px; align-self: center; margin-top: 20px;">
             <input id="track" type="text" class="form-control" placeholder="지금 듣고 있는 노래를 검색해 노래를 모아보세요!">
-
             <button class="btn btn-dark" type="submit" id="search_button" onclick="spotify_search()">
                 <i class="fa-solid fa-magnifying-glass" style="color:white;"></i>
             </button>
@@ -782,9 +755,8 @@
 
     <div class="popup_add_song" id="popup" style="display: none;">
         <div class="contents">
-            <img id="description"
-                         src="/static/img/img_bibimbap.svg"
-                         style="align-self: center; width: 60%; height: 60%; ">
+            <img src="/static/img/img_bibimbap.svg"
+                 style="align-self: center; width: 60%; height: 60%; ">
             <p><strong>Playlist Bibimbap</strong>에 노래가 담겼어요.</p>
         </div>
     </div>
