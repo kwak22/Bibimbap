@@ -92,8 +92,7 @@ def selected_track_post():
                 'hour': track_data['hour'],
                 'count': track_count,
                 'timestamp': track_data['timestamp'],
-                'trackID': track_data['trackID'],
-                'likes': track_likes
+                'trackID': track_data['trackID']
             }
             db.playlist.insert_one(selected_track)
 
